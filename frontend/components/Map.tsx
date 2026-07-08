@@ -85,6 +85,10 @@ function bindLocationInteractions(
   });
 }
 
+function chainsKey(chains: string[]): string {
+  return [...chains].sort().join("\0");
+}
+
 export const Map = memo(function Map({ selectedChains }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -92,20 +96,12 @@ export const Map = memo(function Map({ selectedChains }: Props) {
   const propertiesByIdRef = useRef<globalThis.Map<number, LocationProperties>>(new globalThis.Map());
   const selectedChainsRef = useRef(selectedChains);
   const dataTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [features, setFeatures] = useState<LocationFeatureCollection>(EMPTY_COLLECTION);
   const [error, setError] = useState<string | null>(null);
+  const selectedChainsKey = chainsKey(selectedChains);
 
   useEffect(() => {
     selectedChainsRef.current = selectedChains;
   }, [selectedChains]);
-
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !map.isStyleLoaded()) {
-      return;
-    }
-    setSourceData(map, features);
-  }, [features]);
 
   async function loadBounds() {
     const map = mapRef.current;
@@ -117,7 +113,6 @@ export const Map = memo(function Map({ selectedChains }: Props) {
       if (featuresRef.current.features.length > 0) {
         featuresRef.current = EMPTY_COLLECTION;
         propertiesByIdRef.current = new globalThis.Map();
-        setFeatures(EMPTY_COLLECTION);
         setSourceData(map, EMPTY_COLLECTION);
       }
       setError(null);
@@ -137,7 +132,7 @@ export const Map = memo(function Map({ selectedChains }: Props) {
       propertiesByIdRef.current = new globalThis.Map(
         collection.features.map((feature) => [feature.properties.id, feature.properties])
       );
-      setFeatures(collection);
+      setSourceData(map, collection);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not load locations");
@@ -209,16 +204,20 @@ export const Map = memo(function Map({ selectedChains }: Props) {
     if (mapRef.current) {
       void loadBounds();
     }
-  }, [selectedChains]);
+  }, [selectedChainsKey]);
 
   return (
-    <div className="relative h-full min-h-0 overflow-hidden rounded-3xl bg-slate-200">
+    <div className="absolute inset-0 h-full w-full">
       <div ref={containerRef} className="absolute inset-0" />
       {error ? (
-        <div className="absolute left-4 top-4 rounded-xl bg-white px-4 py-3 text-sm text-red-700 shadow">
+        <div className="glass-panel absolute bottom-4 left-1/2 z-10 max-w-md -translate-x-1/2 rounded-xl px-4 py-3 text-sm text-red-800">
           {error}
         </div>
       ) : null}
     </div>
   );
-});
+}, chainsKeyEqual);
+
+function chainsKeyEqual(prev: Props, next: Props): boolean {
+  return chainsKey(prev.selectedChains) === chainsKey(next.selectedChains);
+}

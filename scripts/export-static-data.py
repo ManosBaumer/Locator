@@ -1,15 +1,19 @@
-"""Export categories, chains, and per-chain GeoJSON for static Netlify hosting.
+"""Export categories, chains, and per-chain GeoJSON for static hosting.
 
-Reads from local Docker Postgres by default. Re-run after ingestion, then commit
-frontend/public/data/ and push to deploy updated map data.
+Reads from Supabase by default (set SUPABASE_DB_PASSWORD in .env).
+Use --local to export from Docker Postgres on localhost:5432 instead.
+
+Re-run after ingestion, then commit frontend/public/data/ and push to deploy.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 import psycopg
 from psycopg.rows import dict_row
@@ -22,6 +26,37 @@ LOCAL_URL = os.getenv(
     "LOCAL_DATABASE_URL",
     "postgresql://locater:locater@localhost:5432/locater",
 )
+PROJECT_REF = os.getenv("SUPABASE_PROJECT_REF", "ycfvmdehdotogbyrpvdm")
+
+EXCLUDED_PREFIXES = ("台湾", "台灣", "香港", "澳门", "澳門")
+
+
+def load_env_password() -> str:
+    password = os.getenv("SUPABASE_DB_PASSWORD", "").strip()
+    if password:
+        return password
+    env_path = REPO_ROOT / ".env"
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("SUPABASE_DB_PASSWORD="):
+                return line.split("=", 1)[1].strip()
+    raise SystemExit(
+        "Set SUPABASE_DB_PASSWORD in .env (or pass --local with Docker Postgres running)."
+    )
+
+
+def supabase_url() -> str:
+    password = quote(load_env_password(), safe="")
+    return (
+        f"postgresql://postgres.{PROJECT_REF}:{password}"
+        f"@aws-0-eu-west-1.pooler.supabase.com:5432/postgres"
+    )
+
+
+def resolve_database_url(use_local: bool) -> str:
+    if use_local:
+        return LOCAL_URL
+    return supabase_url()
 
 EXCLUDED_PREFIXES = ("台湾", "台灣", "香港", "澳门", "澳門")
 
@@ -118,11 +153,20 @@ def export_chain_locations(conn: psycopg.Connection, chain_slug: str) -> int:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Export static map GeoJSON from Postgres.")
+    parser.add_argument(
+        "--local",
+        action="store_true",
+        help="Read from local Docker Postgres (localhost:5432) instead of Supabase.",
+    )
+    args = parser.parse_args()
+
+    database_url = resolve_database_url(args.local)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     LOCATIONS_DIR.mkdir(parents=True, exist_ok=True)
 
-    print(f"Exporting from {LOCAL_URL.split('@')[-1]}")
-    with psycopg.connect(LOCAL_URL) as conn:
+    print(f"Exporting from {database_url.split('@')[-1]}")
+    with psycopg.connect(database_url) as conn:
         export_categories(conn)
         export_chains(conn)
 

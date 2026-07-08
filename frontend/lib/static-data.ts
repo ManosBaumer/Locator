@@ -4,11 +4,9 @@ const DATA_BASE = "/data";
 const MAX_BBOX_FEATURES = 10_000;
 
 const chainCache = new Map<string, LocationFeatureCollection>();
-let categoriesCache: Category[] | null = null;
-let chainsCache: Chain[] | null = null;
 
-async function fetchJson<T>(path: string): Promise<T> {
-  const response = await fetch(path, { cache: "force-cache" });
+async function fetchJson<T>(path: string, options?: { cache?: RequestCache }): Promise<T> {
+  const response = await fetch(path, { cache: options?.cache ?? "default" });
   if (!response.ok) {
     throw new Error(`Failed to load ${path}: ${response.status}`);
   }
@@ -16,20 +14,15 @@ async function fetchJson<T>(path: string): Promise<T> {
 }
 
 export async function loadCategories(): Promise<Category[]> {
-  if (!categoriesCache) {
-    categoriesCache = await fetchJson<Category[]>(`${DATA_BASE}/categories.json`);
-  }
-  return categoriesCache;
+  return fetchJson<Category[]>(`${DATA_BASE}/categories.json`, { cache: "no-store" });
 }
 
 export async function loadChains(category?: string): Promise<Chain[]> {
-  if (!chainsCache) {
-    chainsCache = await fetchJson<Chain[]>(`${DATA_BASE}/chains.json`);
-  }
+  const chains = await fetchJson<Chain[]>(`${DATA_BASE}/chains.json`, { cache: "no-store" });
   if (!category) {
-    return chainsCache;
+    return chains;
   }
-  return chainsCache.filter((chain) => chain.category_slug === category);
+  return chains.filter((chain) => chain.category_slug === category);
 }
 
 export async function loadChainLocations(chainSlug: string): Promise<LocationFeatureCollection> {
@@ -38,7 +31,8 @@ export async function loadChainLocations(chainSlug: string): Promise<LocationFea
     return cached;
   }
   const collection = await fetchJson<LocationFeatureCollection>(
-    `${DATA_BASE}/locations/${encodeURIComponent(chainSlug)}.geojson`
+    `${DATA_BASE}/locations/${encodeURIComponent(chainSlug)}.geojson`,
+    { cache: "force-cache" }
   );
   chainCache.set(chainSlug, collection);
   return collection;

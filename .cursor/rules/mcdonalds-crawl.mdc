@@ -15,7 +15,7 @@ Two ingestion modes:
 
 ## NEVER while a crawl is active
 
-- `docker compose up -d backend`
+- `docker compose --profile ingest up -d backend`
 - `docker compose restart backend`
 - `docker compose build backend` followed by recreating the container
 - Any action that recreates or restarts the `backend` container

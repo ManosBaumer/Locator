@@ -2,11 +2,21 @@
 
 import { FilterPanel } from "@/components/FilterPanel";
 import { Map } from "@/components/Map";
+import { PanelRestoreTab } from "@/components/PanelRestoreTab";
 import { getCategories, getChains } from "@/lib/api";
+import { useDraggablePanel } from "@/lib/useDraggablePanel";
 import type { Category, Chain } from "@/lib/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const PANEL_MARGIN = 16;
 
 export default function HomePage() {
+  const panelRef = useRef<HTMLElement>(null);
+  const { panelStyle, dragHandleProps, isDragging } = useDraggablePanel(panelRef, {
+    margin: PANEL_MARGIN,
+    initialPosition: { x: PANEL_MARGIN, y: PANEL_MARGIN }
+  });
+  const [isPanelMinimized, setIsPanelMinimized] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [chains, setChains] = useState<Chain[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -60,28 +70,39 @@ export default function HomePage() {
   }
 
   return (
-    <main className="grid h-screen grid-cols-[360px_1fr] gap-4 p-4">
-      <aside className="flex min-h-0 flex-col gap-4 overflow-auto">
+    <main className="relative h-dvh w-full overflow-hidden">
+      <Map selectedChains={selectedChains} />
+
+      {isPanelMinimized ? (
+        <PanelRestoreTab onRestore={() => setIsPanelMinimized(false)} />
+      ) : null}
+
+      <aside
+        ref={panelRef}
+        style={panelStyle}
+        aria-hidden={isPanelMinimized}
+        className={`absolute z-10 w-[min(22rem,calc(100vw-2rem))] transition-opacity duration-200 ${
+          isPanelMinimized ? "pointer-events-none invisible opacity-0" : "opacity-100"
+        }`}
+      >
         {loadError ? (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <div className="glass-panel rounded-2xl px-4 py-3 text-sm text-amber-950">
             {loadError}
           </div>
         ) : null}
 
         <FilterPanel
           categories={categories}
-          chains={chains.filter(
-            (chain) =>
-              selectedCategories.length === 0 || selectedCategories.includes(chain.category_slug)
-          )}
+          chains={chains}
           selectedCategories={selectedCategories}
           selectedChains={selectedChains}
+          dragHandleProps={dragHandleProps}
+          isDragging={isDragging}
+          onMinimize={() => setIsPanelMinimized(true)}
           onCategoriesChange={handleCategoriesChange}
           onChainsChange={handleChainsChange}
         />
       </aside>
-
-      <Map selectedChains={selectedChains} />
     </main>
   );
 }

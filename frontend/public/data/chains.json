@@ -3,7 +3,7 @@
     "id": 3,
     "name": "7-Eleven / 7-11",
     "slug": "7-eleven",
-    "category_slug": "supermarket",
+    "category_slug": "convenience",
     "location_count": 4249
   },
   {
@@ -17,7 +17,7 @@
     "id": 5,
     "name": "FamilyMart / 全家",
     "slug": "family-mart",
-    "category_slug": "supermarket",
+    "category_slug": "convenience",
     "location_count": 2463
   },
   {
@@ -66,14 +66,14 @@
     "id": 11,
     "name": "肯德基 / KFC",
     "slug": "kfc",
-    "category_slug": "supermarket",
+    "category_slug": "fast-food",
     "location_count": 11787
   },
   {
     "id": 9,
     "name": "麦当劳 / McDonald's",
     "slug": "mcdonalds",
-    "category_slug": "supermarket",
+    "category_slug": "fast-food",
     "location_count": 8172
   }
 ]

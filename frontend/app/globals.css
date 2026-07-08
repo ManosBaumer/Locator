@@ -15,5 +15,171 @@ body {
 
 body {
   margin: 0;
-  background: #f8fafc;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.26);
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    box-shadow:
+      0 4px 24px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+  }
+
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .glass-panel-header {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  .panel-scroll-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .panel-scroll-hide::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .glass-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.62);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    cursor: grab;
+  }
+
+  .glass-scrollbar-thumb.is-active,
+  .glass-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.68);
+    border-color: rgba(255, 255, 255, 0.82);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  .glass-scrollbar-thumb.is-active {
+    cursor: grabbing;
+  }
+
+  .panel-restore-tab {
+    top: 50%;
+    height: 4.5rem;
+    width: 1.75rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-left: none;
+    background: rgba(255, 255, 255, 0.48);
+    box-shadow:
+      4px 0 20px rgba(15, 23, 42, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) saturate(140%);
+    color: rgba(51, 65, 85, 0.9);
+    transform: translateY(-50%);
+    transition:
+      background 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .panel-restore-tab:hover {
+    background: rgba(255, 255, 255, 0.62);
+    color: rgba(15, 23, 42, 1);
+    transform: translate(2px, -50%);
+  }
+
+  .glass-checkbox {
+    @apply relative inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[6px] text-slate-700;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1.5px solid rgba(255, 255, 255, 0.48);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    transition:
+      transform 0.14s cubic-bezier(0.34, 1.4, 0.64, 1),
+      background 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      color 0.18s ease;
+  }
+
+  .glass-checkbox.is-checked {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(255, 255, 255, 0.92);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 1px 2px rgba(15, 23, 42, 0.06);
+    color: rgba(30, 41, 59, 0.9);
+  }
+
+  .glass-checkbox.is-indeterminate {
+    background: rgba(255, 255, 255, 0.58);
+    border-color: rgba(255, 255, 255, 0.78);
+    color: rgba(51, 65, 85, 0.85);
+  }
+
+  .glass-checkbox svg {
+    transition: transform 0.14s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .peer:hover + .glass-checkbox {
+    border-color: rgba(56, 189, 248, 0.72);
+    background: rgba(186, 230, 254, 0.42);
+    color: rgba(3, 105, 161, 0.95);
+  }
+
+  .peer:hover + .glass-checkbox.is-checked {
+    background: rgba(125, 211, 252, 0.62);
+    border-color: rgba(14, 165, 233, 0.82);
+    color: rgba(7, 89, 133, 1);
+  }
+
+  .peer:hover + .glass-checkbox.is-indeterminate {
+    background: rgba(147, 197, 253, 0.52);
+    border-color: rgba(59, 130, 246, 0.75);
+    color: rgba(29, 78, 216, 0.95);
+  }
+
+  .peer:active + .glass-checkbox {
+    transform: scale(0.84);
+    transition-duration: 0.08s;
+  }
+
+  .peer:active + .glass-checkbox svg {
+    transform: scale(0.9);
+  }
+
+  .peer:focus-visible + .glass-checkbox {
+    outline: 2px solid rgba(56, 189, 248, 0.75);
+    outline-offset: 2px;
+  }
+
+  @keyframes checkbox-pop {
+    0% {
+      transform: scale(0.55);
+      opacity: 0.4;
+    }
+    70% {
+      transform: scale(1.12);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .glass-checkbox.is-popping svg {
+    animation: checkbox-pop 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
 }
