@@ -1,0 +1,49 @@
+---
+description: McDonald's grid crawl is long-running; never restart the backend container during it
+globs:
+alwaysApply: true
+---
+
+# McDonald's ingestion — do NOT restart the backend container during a crawl
+
+Two ingestion modes:
+
+| Mode | Chain slug | Purpose |
+|------|------------|---------|
+| **Recommended** | `mcdonalds_deliveryinfo` | Official ~8k disclosure list + per-city API grid |
+| Legacy grid | `mcdonalds` | Nationwide adaptive grid (checkpoint at `data/mcdonalds-checkpoint/`) |
+
+## NEVER while a crawl is active
+
+- `docker compose up -d backend`
+- `docker compose restart backend`
+- `docker compose build backend` followed by recreating the container
+- Any action that recreates or restarts the `backend` container
+
+These kill the scraper and have repeatedly corrupted or wiped multi-hour checkpoints.
+
+## Safe operations during a crawl
+
+- Deploy code hotfixes only: `docker cp backend/app/... locater-backend-1:/app/app/...` (no container recreate)
+- Stop scraper (use in-container PID via `/proc`, not host `docker compose top` PIDs)
+- **Start disclosure crawl (recommended):** `docker exec -d locater-backend-1 sh -c "python -u -m app.ingestion.runner --chain mcdonalds_deliveryinfo >> /tmp/mcdonalds-deliveryinfo.log 2>&1"`
+- **Resume disclosure crawl:** same start command — skips cities already in `deliveryinfo_progress.json` under the checkpoint dir
+- **Resume legacy grid:** `docker exec -d locater-backend-1 sh -c "python -u -m app.ingestion.runner --chain mcdonalds >> /tmp/mcdonalds-ingest.log 2>&1"`
+- Import grid checkpoint to DB: `docker compose exec backend python -m app.ingestion.runner --chain mcdonalds --from-checkpoint`
+- Import deliveryinfo checkpoint to DB: `docker compose exec backend python -m app.ingestion.runner --chain mcdonalds_deliveryinfo --from-checkpoint`
+
+## deliveryinfo v1.2 speed (single process — do NOT run two scrapers)
+
+- Default **10 cities × 3 grid workers** (~30 concurrent API calls); tune via env:
+  - `ADAPTER_MCDONALDS_DELIVERYINFO_CITY_CONCURRENCY=10`
+  - `ADAPTER_MCDONALDS_DELIVERYINFO_GRID_WORKERS=3`
+  - `ADAPTER_MCDONALDS_DELIVERYINFO_PAGE_CONCURRENCY=32`
+- Small cities run first (sorted by disclosure store count)
+- Per-city early stop once all disclosure stores for that city are matched
+- Cached manifest: `{checkpoint_dir}/deliveryinfo_manifest.json` (skip 812-page scrape on resume)
+- Per-city checkpoints: `{checkpoint_dir}/deliveryinfo_cities/*.json` + `deliveryinfo_state.json`
+
+## Before any backend container change
+
+1. Check if crawler is running: `docker compose top backend` and look for `app.ingestion.runner`
+2. If running, stop the scraper first and wait for a checkpoint save, OR refuse the container restart and use `docker cp` instead

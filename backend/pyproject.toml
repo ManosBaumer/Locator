@@ -1,0 +1,40 @@
+[project]
+name = "locater-backend"
+version = "0.1.0"
+description = "Geospatial chain location aggregation backend."
+requires-python = ">=3.10"
+dependencies = [
+  "alembic>=1.13.2",
+  "asyncpg>=0.29.0",
+  "beautifulsoup4>=4.12.3",
+  "fastapi>=0.115.0",
+  "geoalchemy2>=0.15.2",
+  "greenlet>=3.0.3",
+  "httpx>=0.27.2",
+  "playwright>=1.47.0",
+  "psycopg[binary]>=3.2.1",
+  "pydantic>=2.9.2",
+  "pydantic-settings>=2.5.2",
+  "python-json-logger>=2.0.7",
+  "sqlalchemy>=2.0.34",
+  "tenacity>=9.0.0",
+  "uvicorn[standard]>=0.30.6"
+]
+
+[build-system]
+requires = ["setuptools>=70.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.3",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.6.8"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

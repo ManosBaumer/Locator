@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-locater}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-locater}
+      POSTGRES_DB: ${POSTGRES_DB:-locater}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-locater} -d ${POSTGRES_DB:-locater}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://locater:locater@db:5432/locater}
+      SYNC_DATABASE_URL: ${SYNC_DATABASE_URL:-postgresql+psycopg://locater:locater@db:5432/locater}
+      AMAP_API_KEY: ${AMAP_API_KEY:-}
+      ADMIN_API_KEY: ${ADMIN_API_KEY:-change-me}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:3001}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/mcdonalds-checkpoint:/tmp/mcdonalds-checkpoint
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             python -m app.db.seed &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+      BACKEND_URL: ${BACKEND_URL:-http://backend:8000}
+      NEXT_PUBLIC_MAP_TILE_URL: ${NEXT_PUBLIC_MAP_TILE_URL:-https://tiles.openfreemap.org/styles/liberty}
+    ports:
+      - "${FRONTEND_PORT:-3001}:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

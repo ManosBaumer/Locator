@@ -1,0 +1,23 @@
+# Render blueprint for the FastAPI backend (optional — not used by Netlify).
+# Deploy at https://dashboard.render.com → New → Blueprint
+services:
+  - type: web
+    name: locater-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SYNC_DATABASE_URL
+        sync: false
+      - key: AMAP_API_KEY
+        sync: false
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
