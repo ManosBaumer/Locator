@@ -68,12 +68,14 @@ See `.cursor/rules/mcdonalds-crawl.mdc` for crawl safety rules.
 3. After deploy, copy the Render URL (e.g. `https://locater-api.onrender.com`)
 4. Set on Netlify: `BACKEND_URL=https://locater-api.onrender.com` and redeploy
 
-### Import McDonald's locations into Supabase
+### Migrate existing locations into Supabase
 
-Add `SUPABASE_DB_PASSWORD` to `.env`, then:
+If your local Docker database already has locations (from prior ingestion), copy them directly — **no scraping**:
 
 ```powershell
-.\scripts\import-mcdonalds-checkpoint.ps1
+# Requires docker compose db running on localhost:5432
+# and SUPABASE_DB_PASSWORD in .env
+python scripts/migrate-local-db-to-supabase.py
 ```
 
-This imports ~5,800 stores from `data/mcdonalds-checkpoint/` into Supabase.
+This copies all ~30k locations (including 8,172 McDonald's) from local Postgres to Supabase.
