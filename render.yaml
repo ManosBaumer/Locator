@@ -1,11 +1,12 @@
-# Render blueprint for the FastAPI backend (optional — not used by Netlify).
-# Deploy at https://dashboard.render.com → New → Blueprint
+# Deploy: Render Dashboard → New → Blueprint → connect ManosBaumer/Locator
 services:
   - type: web
     name: locater-api
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    repo: https://github.com/ManosBaumer/Locator
+    branch: main
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /health
     envVars:
@@ -18,6 +19,6 @@ services:
       - key: ADMIN_API_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        sync: false
+        value: https://locater-map.netlify.app
       - key: LOG_LEVEL
         value: INFO

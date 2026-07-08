@@ -55,5 +55,25 @@ See `.cursor/rules/mcdonalds-crawl.mdc` for crawl safety rules.
 ## Deployment
 
 - **Frontend**: push to `main` → Netlify builds from `netlify.toml` (`base = frontend`)
-- **Backend**: deploy `backend/Dockerfile` to a container host; point `DATABASE_URL` at Supabase
-- **Database**: Supabase project `locater` (eu-west-1)
+- **Backend**: deploy `backend/Dockerfile` on [Render](https://render.com) via `render.yaml` blueprint
+- **Database**: Supabase project `locater` (`ycfvmdehdotogbyrpvdm`, eu-west-1)
+
+### Backend on Render
+
+1. [Render → New → Blueprint](https://dashboard.render.com/blueprints) → connect `ManosBaumer/Locator`
+2. Set env vars when prompted:
+   - `DATABASE_URL` = `postgresql+asyncpg://postgres.ycfvmdehdotogbyrpvdm:[PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:5432/postgres`
+   - `SYNC_DATABASE_URL` = `postgresql+psycopg://postgres.ycfvmdehdotogbyrpvdm:[PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:5432/postgres`
+   - `AMAP_API_KEY` = your Amap key
+3. After deploy, copy the Render URL (e.g. `https://locater-api.onrender.com`)
+4. Set on Netlify: `BACKEND_URL=https://locater-api.onrender.com` and redeploy
+
+### Import McDonald's locations into Supabase
+
+Add `SUPABASE_DB_PASSWORD` to `.env`, then:
+
+```powershell
+.\scripts\import-mcdonalds-checkpoint.ps1
+```
+
+This imports ~5,800 stores from `data/mcdonalds-checkpoint/` into Supabase.
