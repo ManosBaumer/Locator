@@ -2,7 +2,7 @@ import { chainLogoPath } from "@/lib/chain-logos";
 
 type Props = {
   slug: string;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   className?: string;
 };
 
