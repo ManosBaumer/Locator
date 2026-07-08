@@ -6,11 +6,12 @@ Geospatial retail-chain location aggregator for China. Map UI (Next.js + MapLibr
 
 | Component | Local (Docker) | Production |
 |-----------|----------------|------------|
-| Frontend | `frontend` container (port 3001) | **Netlify** (GitHub deploys) |
-| Backend API | `backend` container (port 8000) | Docker host (Render, Railway, Fly, VPS) |
-| Database | PostGIS container | **Supabase Postgres** (PostGIS) |
+| Frontend | `frontend` container (port 3001) | **Netlify** (static GeoJSON + Next.js) |
+| Map data | `frontend/public/data/` | Same files, deployed with frontend |
+| Ingestion | `backend` container + scrapers | Run locally when updating data |
+| Database | PostGIS container (optional Supabase archive) | Not required for the public map |
 
-The Next.js app proxies `/api/v1/*` to the FastAPI backend via `BACKEND_URL`.
+The map loads **static GeoJSON** from `/data/` — no live API in production. Re-export after ingestion with `python scripts/export-static-data.py`.
 
 ## Local development
 
@@ -55,27 +56,32 @@ See `.cursor/rules/mcdonalds-crawl.mdc` for crawl safety rules.
 ## Deployment
 
 - **Frontend**: push to `main` → Netlify builds from `netlify.toml` (`base = frontend`)
-- **Backend**: deploy `backend/Dockerfile` on [Render](https://render.com) via `render.yaml` blueprint
-- **Database**: Supabase project `locater` (`ycfvmdehdotogbyrpvdm`, eu-west-1)
+- **Map data**: static GeoJSON in `frontend/public/data/` (no live backend required)
+- **Database**: Supabase for storage; re-export after ingestion updates
 
-### Backend on Render
-
-1. [Render → New → Blueprint](https://dashboard.render.com/blueprints) → connect `ManosBaumer/Locator`
-2. Set env vars when prompted:
-   - `DATABASE_URL` = `postgresql+asyncpg://postgres.ycfvmdehdotogbyrpvdm:[PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:5432/postgres`
-   - `SYNC_DATABASE_URL` = `postgresql+psycopg://postgres.ycfvmdehdotogbyrpvdm:[PASSWORD]@aws-0-eu-west-1.pooler.supabase.com:5432/postgres`
-   - `AMAP_API_KEY` = your Amap key
-3. After deploy, copy the Render URL (e.g. `https://locater-api.onrender.com`)
-4. Set on Netlify: `BACKEND_URL=https://locater-api.onrender.com` and redeploy
-
-### Migrate existing locations into Supabase
-
-If your local Docker database already has locations (from prior ingestion), copy them directly — **no scraping**:
+### Update map data after ingestion
 
 ```powershell
-# Requires docker compose db running on localhost:5432
-# and SUPABASE_DB_PASSWORD in .env
+# Requires docker compose db on localhost:5432
+python scripts/export-static-data.py
+git add frontend/public/data/
+git commit -m "Update static map data"
+git push
+```
+
+Netlify redeploys automatically from GitHub.
+
+### Migrate local Postgres → Supabase (optional archive)
+
+```powershell
 python scripts/migrate-local-db-to-supabase.py
 ```
 
-This copies all ~30k locations (including 8,172 McDonald's) from local Postgres to Supabase.
+### Local backend (ingestion only)
+
+```bash
+docker compose up
+docker compose exec backend python -m app.ingestion.runner --chain mcdonalds_deliveryinfo --from-checkpoint
+```
+
+The FastAPI backend is for ingestion and local dev — production map reads static files.

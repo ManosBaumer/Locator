@@ -11,7 +11,7 @@ frontend/out/
 frontend/npm-debug.log*
 
 postgres_data/
-data/
+/data/
 .netlify/
 frontend/.env.local
 backend/scripts/kfc_probe_out/

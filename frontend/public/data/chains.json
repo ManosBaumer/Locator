@@ -1,0 +1,79 @@
+[
+  {
+    "id": 3,
+    "name": "7-Eleven / 7-11",
+    "slug": "7-eleven",
+    "category_slug": "supermarket",
+    "location_count": 4249
+  },
+  {
+    "id": 4,
+    "name": "ALDI / 奥乐齐",
+    "slug": "aldi",
+    "category_slug": "supermarket",
+    "location_count": 89
+  },
+  {
+    "id": 5,
+    "name": "FamilyMart / 全家",
+    "slug": "family-mart",
+    "category_slug": "supermarket",
+    "location_count": 2463
+  },
+  {
+    "id": 10,
+    "name": "七鲜 / 7FRESH",
+    "slug": "7fresh",
+    "category_slug": "supermarket",
+    "location_count": 71
+  },
+  {
+    "id": 2,
+    "name": "大润发 / RT-Mart",
+    "slug": "rt-mart",
+    "category_slug": "supermarket",
+    "location_count": 501
+  },
+  {
+    "id": 7,
+    "name": "开市客 / Costco",
+    "slug": "costco",
+    "category_slug": "supermarket",
+    "location_count": 7
+  },
+  {
+    "id": 6,
+    "name": "永辉 / Yonghui",
+    "slug": "yonghui",
+    "category_slug": "supermarket",
+    "location_count": 1630
+  },
+  {
+    "id": 8,
+    "name": "沃尔玛 / Walmart",
+    "slug": "walmart",
+    "category_slug": "supermarket",
+    "location_count": 325
+  },
+  {
+    "id": 1,
+    "name": "盒马 / Freshippo",
+    "slug": "hema",
+    "category_slug": "supermarket",
+    "location_count": 963
+  },
+  {
+    "id": 11,
+    "name": "肯德基 / KFC",
+    "slug": "kfc",
+    "category_slug": "supermarket",
+    "location_count": 11787
+  },
+  {
+    "id": 9,
+    "name": "麦当劳 / McDonald's",
+    "slug": "mcdonalds",
+    "category_slug": "supermarket",
+    "location_count": 8172
+  }
+]
