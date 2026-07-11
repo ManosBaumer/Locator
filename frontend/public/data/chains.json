@@ -70,6 +70,13 @@
     "location_count": 11787
   },
   {
+    "id": 12,
+    "name": "蜜雪冰城 / Mixue",
+    "slug": "mixue",
+    "category_slug": "fast-food",
+    "location_count": 42711
+  },
+  {
     "id": 9,
     "name": "麦当劳 / McDonald's",
     "slug": "mcdonalds",

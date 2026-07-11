@@ -1,16 +1,17 @@
 {
   "chains": [
     "7-eleven",
-    "7fresh",
     "aldi",
-    "costco",
     "family-mart",
+    "7fresh",
+    "rt-mart",
+    "costco",
+    "yonghui",
+    "walmart",
     "hema",
     "kfc",
-    "mcdonalds",
-    "rt-mart",
-    "walmart",
-    "yonghui"
+    "mixue",
+    "mcdonalds"
   ],
-  "location_count": 30257
+  "location_count": 72968
 }

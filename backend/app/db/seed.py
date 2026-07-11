@@ -86,6 +86,13 @@ CHAINS = [
         "store_locator_url": "https://www.kfc.com.cn/kfccda/ashx/GetStoreList.ashx?op=cname",
     },
     {
+        "slug": "mixue",
+        "name": "蜜雪冰城 / Mixue",
+        "category_slug": "fast-food",
+        "website": "https://www.mxbc.com/",
+        "store_locator_url": "https://mxsa.mxbc.net/api/v2/shopinfo/findNear",
+    },
+    {
         "slug": "7fresh",
         "name": "七鲜 / 7FRESH",
         "category_slug": "supermarket",

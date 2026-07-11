@@ -1,6 +1,6 @@
 "use client";
 
-import { getLocationsForBbox } from "@/lib/api";
+import { loadLocationsForBbox } from "@/lib/static-data";
 import { CHAIN_ICON_IMAGE_EXPRESSION, loadChainMarkerImages } from "@/lib/chain-logos";
 import { enableEaseWheelZoom } from "@/lib/ease-wheel-zoom";
 import type { LocationFeatureCollection, LocationProperties } from "@/lib/types";
@@ -96,6 +96,7 @@ export const Map = memo(function Map({ selectedChains }: Props) {
   const propertiesByIdRef = useRef<globalThis.Map<number, LocationProperties>>(new globalThis.Map());
   const selectedChainsRef = useRef(selectedChains);
   const dataTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadGenerationRef = useRef(0);
   const [error, setError] = useState<string | null>(null);
   const selectedChainsKey = chainsKey(selectedChains);
 
@@ -120,14 +121,18 @@ export const Map = memo(function Map({ selectedChains }: Props) {
     }
 
     const bounds = map.getBounds();
+    const generation = ++loadGenerationRef.current;
     try {
-      const collection = await getLocationsForBbox({
+      const collection = await loadLocationsForBbox({
         minLng: bounds.getWest(),
         minLat: bounds.getSouth(),
         maxLng: bounds.getEast(),
         maxLat: bounds.getNorth(),
         chains: selectedChainsRef.current
       });
+      if (generation !== loadGenerationRef.current) {
+        return;
+      }
       featuresRef.current = collection;
       propertiesByIdRef.current = new globalThis.Map(
         collection.features.map((feature) => [feature.properties.id, feature.properties])

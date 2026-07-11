@@ -1,0 +1,1190 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": [
+    {
+      "shopId": "1704697458497568769",
+      "shopCode": "935179",
+      "shopName": "蜜雪冰城（王府井步行街店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "王府井大街301-1一层1号",
+      "longitude": 116.410636,
+      "latitude": 39.91044,
+      "distance": "747m",
+      "operationStatus": 2,
+      "operationTime": "08:30-23:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-22%2FQAPc8.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-22%2FxWbdy.jpg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "王府井步行街店"
+    },
+    {
+      "shopId": "1921750356279357441",
+      "shopCode": "61900820",
+      "shopName": "蜜雪冰城（前门皮影主题店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "北京市东城区前门大街2号一层105室",
+      "longitude": 116.398357,
+      "latitude": 39.898425,
+      "distance": "1.0km",
+      "operationStatus": 0,
+      "operationTime": "08:30-23:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-01-05%2FwhwpW.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-01-05%2FegK5w.jpg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "前门皮影主题店"
+    },
+    {
+      "shopId": "1752956513430949889",
+      "shopCode": "937378",
+      "shopName": "蜜雪冰城（崇文门店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "崇文门新怡商务楼甲3号楼一层南侧",
+      "longitude": 116.417129,
+      "latitude": 39.897491,
+      "distance": "1.1km",
+      "operationStatus": 2,
+      "operationTime": "00:00-01:00,09:00-24:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-06-08%2FiqsLc.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-12%2FNCAZs.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "00:00-01:00,09:00-24:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "崇文门店"
+    },
+    {
+      "shopId": "1811704179031445505",
+      "shopCode": "943058",
+      "shopName": "蜜雪冰城（天安门店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110102",
+      "regionName": null,
+      "shopAddress": "北京市西城区前门西大街正阳市场1号楼1层106",
+      "longitude": 116.395709,
+      "latitude": 39.899673,
+      "distance": "1.1km",
+      "operationStatus": 2,
+      "operationTime": "09:30-21:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-08-01%2F1655885149_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-08-01%2F-784731558_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "天安门店"
+    },
+    {
+      "shopId": "1776889122225569793",
+      "shopCode": "939891",
+      "shopName": "蜜雪冰城（东单地铁口店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "东单北大街122.124号06室",
+      "longitude": 116.418241,
+      "latitude": 39.90991,
+      "distance": "1.1km",
+      "operationStatus": 1,
+      "operationTime": "08:00-23:59",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-12-29%2FGgLuV.jpeg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-12-29%2F6J1iO.jpeg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "08:30-23:29",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "东单地铁口店"
+    },
+    {
+      "shopId": "1767836775809695745",
+      "shopCode": "938548",
+      "shopName": "蜜雪冰城（东安门店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "北京市东城区东安门大街36号",
+      "longitude": 116.409296,
+      "latitude": 39.91525,
+      "distance": "1.2km",
+      "operationStatus": 1,
+      "operationTime": "08:00-23:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-12%2FbPKNd.jpeg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-03-18%2F-2068759509_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "08:30-22:30",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "东安门店"
+    },
+    {
+      "shopId": "1424927272997351425",
+      "shopCode": "914609",
+      "shopName": "蜜雪冰城国瑞店",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "崇文门外大街18号国瑞购物中心2G层",
+      "longitude": 116.419844,
+      "latitude": 39.89828,
+      "distance": "1.2km",
+      "operationStatus": 2,
+      "operationTime": "10:00-21:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc/prod/2024-04-12/446656487_1712904754638_image.jpg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/prod%2F2023-04-18%2F1425014032196206594_businessLicense.jpg?x-image-process=image/watermark,text_5LuF5L2c572R5LiK6K-B54Wn5YWs56S677yM5oiq5Zu-5aSN5Y2w5peg5pWI,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "10:30-21:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "国瑞店"
+    },
+    {
+      "shopId": "1779777122450198529",
+      "shopCode": "940339",
+      "shopName": "蜜雪冰城（故宫东门店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "北京东城区东华门街道东华门大街路南56号",
+      "longitude": 116.403997,
+      "latitude": 39.91514,
+      "distance": "1.3km",
+      "operationStatus": 1,
+      "operationTime": "07:50-21:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-04-17%2F1137956527_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-12%2FV9idg.jpeg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "故宫东门店"
+    },
+    {
+      "shopId": "1899653772309856257",
+      "shopCode": "947999",
+      "shopName": "蜜雪冰城（大栅栏步行街店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110102",
+      "regionName": "北京市西城区",
+      "shopAddress": "大栅栏街21号1幢1层101室",
+      "longitude": 116.395947,
+      "latitude": 39.896042,
+      "distance": "1.3km",
+      "operationStatus": 2,
+      "operationTime": "08:30-22:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-23%2FFFDjB.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-23%2FKZCfn.jpg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "大栅栏步行街店"
+    },
+    {
+      "shopId": "1928382172079726594",
+      "shopCode": "951217",
+      "shopName": "蜜雪冰城（前门店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110102",
+      "regionName": "北京市西城区",
+      "shopAddress": "煤市街7-7号",
+      "longitude": 116.394259,
+      "latitude": 39.897007,
+      "distance": "1.4km",
+      "operationStatus": 0,
+      "operationTime": "00:00-02:30,07:30-24:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-06-13%2FwU5xy.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-06-13%2F2PwDE.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 0,
+      "takeoutOperationTime": "00:00-02:30,07:30-24:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "前门店"
+    },
+    {
+      "shopId": "1494492307225968641",
+      "shopCode": "923237",
+      "shopName": "蜜雪冰城(前门大街店)",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "前门大街115号0105A，0105C室",
+      "longitude": 116.398092,
+      "latitude": 39.893788,
+      "distance": "1.4km",
+      "operationStatus": 2,
+      "operationTime": "09:00-22:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-09%2FthxBR.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-04-09%2FD3glR.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "09:30-22:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "前门大街店"
+    },
+    {
+      "shopId": "1424923276953907201",
+      "shopCode": "915667",
+      "shopName": "蜜雪冰城(大栅栏店)",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110102",
+      "regionName": "北京市西城区",
+      "shopAddress": "大栅栏西街6号",
+      "longitude": 116.393917,
+      "latitude": 39.8954,
+      "distance": "1.5km",
+      "operationStatus": 1,
+      "operationTime": "00:00-24:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-04-09%2FKWrtH.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-05-02%2FmltG9.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 1,
+      "takeoutOperationTime": "00:30-23:30",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "https://mxsa-oss.mxbc.net/oss/h5/20260415/e685b4db9a49427c9c28f7e96bae97ed.jpg",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "大栅栏店"
+    },
+    {
+      "shopId": "1938051032789729282",
+      "shopCode": "951969",
+      "shopName": "蜜雪冰城（灯市口地铁站店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "西堂子胡同1号院3号楼首层房屋",
+      "longitude": 116.417649,
+      "latitude": 39.916419,
+      "distance": "1.6km",
+      "operationStatus": 1,
+      "operationTime": "08:00-23:40",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-07-29%2F7KuD8.jpeg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-07-29%2FGj6Lt.jpeg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "灯市口地铁站店"
+    },
+    {
+      "shopId": "1544583808022298625",
+      "shopCode": "926542",
+      "shopName": "蜜雪冰城（王府井大街店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "王府井大街99号世纪大厦A座G03单元",
+      "longitude": 116.410979,
+      "latitude": 39.91917,
+      "distance": "1.7km",
+      "operationStatus": 2,
+      "operationTime": "10:00-23:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-02-08%2F9iNHt.jpeg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-04-29%2FRP2lG.jpeg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "10:30-22:30",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "王府井大街店"
+    },
+    {
+      "shopId": "1895400797852815361",
+      "shopCode": "947529",
+      "shopName": "蜜雪冰城（灯市口店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "灯市口1-1号",
+      "longitude": 116.417526,
+      "latitude": 39.918959,
+      "distance": "1.9km",
+      "operationStatus": 1,
+      "operationTime": "00:00-01:30,07:00-23:59",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-04-23%2F9OtbM.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-05-06%2FGQ1Sv.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 1,
+      "takeoutOperationTime": "00:00-01:30,07:00-23:59",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "灯市口店"
+    },
+    {
+      "shopId": "1926948524520534018",
+      "shopCode": "951022",
+      "shopName": "蜜雪冰城（北京站东街店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "老钱局胡同16号6幢",
+      "longitude": 116.43071,
+      "latitude": 39.905258,
+      "distance": "2.0km",
+      "operationStatus": 1,
+      "operationTime": "00:00-24:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2025-08-19%2FsyFAX.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-14%2F4afe5.jpeg",
+      "takeoutStatus": 0,
+      "deliveryType": 2,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "https://mxsa-oss.mxbc.net/oss/h5/20260415/e685b4db9a49427c9c28f7e96bae97ed.jpg",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "北京站东街店"
+    },
+    {
+      "shopId": "2028355986263298050",
+      "shopCode": "955625",
+      "shopName": "蜜雪冰城（朝阳门内南小街店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": "北京市东城区",
+      "shopAddress": "朝阳门内南小街165号1幢",
+      "longitude": 116.426342,
+      "latitude": 39.91941,
+      "distance": "2.3km",
+      "operationStatus": 1,
+      "operationTime": "07:50-23:59",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-30%2F5ahR5.jpg",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-18%2FbsRHj.jpg",
+      "takeoutStatus": 0,
+      "deliveryType": 1,
+      "takeoutNotice": null,
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [],
+      "deliveryFee": null,
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": null,
+      "fixDeliveryCost": null,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "朝阳门内南小街店"
+    },
+    {
+      "shopId": "1791027971679744002",
+      "shopCode": "941754",
+      "shopName": "蜜雪冰城（虎坊桥地铁站店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110102",
+      "regionName": null,
+      "shopAddress": "北京西城区虎坊桥甲2-2号",
+      "longitude": 116.385094,
+      "latitude": 39.888614,
+      "distance": "2.6km",
+      "operationStatus": 2,
+      "operationTime": "10:00-21:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-06-07%2F-1969347650_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2024-06-07%2F-492426098_head.jpeg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "10:30-21:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "虎坊桥地铁站店"
+    },
+    {
+      "shopId": "1762393856911007746",
+      "shopCode": "61900100",
+      "shopName": "蜜雪冰城（广渠门内地铁口店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "北京市东城区广渠门内大街29号11幢一层021号",
+      "longitude": 116.434694,
+      "latitude": 39.894032,
+      "distance": "2.6km",
+      "operationStatus": 2,
+      "operationTime": "09:10-22:30",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc/prod/2024-04-01/-1143192158_1711970945419_image.jpg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc/prod/2024-04-01/541997146_1711970938426_image.jpg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "09:40-22:00",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "广渠门内地铁口店"
+    },
+    {
+      "shopId": "1830775429829656577",
+      "shopCode": "61900497",
+      "shopName": "蜜雪冰城（天坛店）",
+      "contactPhone": "",
+      "contactPhone2": "",
+      "regionCode": "110101",
+      "regionName": null,
+      "shopAddress": "北京东城区永定门内大街1号",
+      "longitude": 116.398102,
+      "latitude": 39.880643,
+      "distance": "2.7km",
+      "operationStatus": 2,
+      "operationTime": "09:00-22:00",
+      "shopStatus": 1,
+      "payStatus": 1,
+      "contractStatus": 1,
+      "licenseStatus": 1,
+      "shopImg3": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc/prod/2024-09-29/-82979166_1727625057641_image.jpg?x-image-process=image/watermark,text_5LuF55So5LqO6Jyc6Zuq5Yaw5Z-O6Zeo5bqX55u45YWz57uP6JCl5rS75Yqo5L2_55So,size_40,fill_1,type_d3F5LW1pY3JvaGVp,shadow_20,rotate_40",
+      "shopImg4": "https://mxbc-mxt-obs.obs.cn-east-2.myhuaweicloud.com:443/mxbc%2Fprod%2F2026-03-14%2Fq2vvf.jpg",
+      "takeoutStatus": 1,
+      "deliveryType": 2,
+      "takeoutNotice": "本店已开通小程序外卖，欢迎下单~",
+      "wxQrCode": null,
+      "wxQrCodeText": null,
+      "nightDeFeeList": [
+        {
+          "startTime": 0,
+          "endTime": 6,
+          "minDeliveryAmount": 300
+        },
+        {
+          "startTime": 6,
+          "endTime": 8,
+          "minDeliveryAmount": 100
+        },
+        {
+          "startTime": 8,
+          "endTime": 21,
+          "minDeliveryAmount": 0
+        },
+        {
+          "startTime": 21,
+          "endTime": 24,
+          "minDeliveryAmount": 200
+        }
+      ],
+      "deliveryFee": {
+        "firstDeliveryDistance": 1,
+        "firstDeliveryFee": 200,
+        "extraDeliveryDistance": 1,
+        "extraDeliveryFee": 100,
+        "deliveryAmountConfig": [
+          {
+            "payAmount": 1800,
+            "deliveryAmount": 200
+          }
+        ]
+      },
+      "takeoutOperationStatus": 2,
+      "takeoutOperationTime": "09:30-21:30",
+      "fixDeliveryCost": 500,
+      "hasNearShop": null,
+      "hasCollectShop": false,
+      "areaCode": "CN",
+      "currencyCode": "CNY",
+      "isOversea": 0,
+      "shopListBgImage": "",
+      "expressStatus": 0,
+      "waitQueueVo": null,
+      "standardShopName": "天坛店"
+    }
+  ]
+}

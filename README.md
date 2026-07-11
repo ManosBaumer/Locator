@@ -58,6 +58,21 @@ git commit -m "Update static map data"
 git push
 ```
 
+### Mixue (蜜雪冰城) — static scrape (no Docker)
+
+Uses the WeChat mini-program API (`scripts/lib/mixue-api.js`). Grid search + pagination, writes GeoJSON directly:
+
+```powershell
+node scripts/scrape-mixue.js              # full mainland (~hours; resumable)
+node scripts/scrape-mixue.js --test-beijing
+node scripts/scrape-mixue.js --resume     # after interrupt
+node scripts/scrape-mixue.js --region east-south
+```
+
+Output: `frontend/public/data/locations/mixue.geojson` (checkpoint in `data/mixue-checkpoint.json`, gitignored).
+
+Then commit `frontend/public/data/` and logos under `frontend/public/logos/mixue*.png`.
+
 ## Environment variables
 
 See `.env.example` for ingestion (Docker + Supabase). For the map frontend, only optional:

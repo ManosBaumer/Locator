@@ -3,7 +3,7 @@
 import { FilterPanel } from "@/components/FilterPanel";
 import { Map } from "@/components/Map";
 import { PanelRestoreTab } from "@/components/PanelRestoreTab";
-import { getCategories, getChains } from "@/lib/api";
+import { loadCategories, loadChains } from "@/lib/static-data";
 import { useDraggablePanel } from "@/lib/useDraggablePanel";
 import type { Category, Chain } from "@/lib/types";
 import { useEffect, useRef, useState } from "react";
@@ -26,7 +26,7 @@ export default function HomePage() {
   useEffect(() => {
     async function loadFilters() {
       try {
-        const [categoryRows, chainRows] = await Promise.all([getCategories(), getChains()]);
+        const [categoryRows, chainRows] = await Promise.all([loadCategories(), loadChains()]);
         setCategories(categoryRows);
         setChains(chainRows);
         const chainSlugs = chainRows.map((chain) => chain.slug);

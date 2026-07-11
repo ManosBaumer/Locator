@@ -4,6 +4,7 @@ const DATA_BASE = "/data";
 const MAX_BBOX_FEATURES = 10_000;
 
 const chainCache = new Map<string, LocationFeatureCollection>();
+let chainDataVersion: string | null = null;
 
 async function fetchJson<T>(path: string, options?: { cache?: RequestCache }): Promise<T> {
   const response = await fetch(path, { cache: options?.cache ?? "default" });
@@ -26,13 +27,22 @@ export async function loadChains(category?: string): Promise<Chain[]> {
 }
 
 export async function loadChainLocations(chainSlug: string): Promise<LocationFeatureCollection> {
+  const manifest = await fetchJson<{ location_count?: number }>(`${DATA_BASE}/manifest.json`, {
+    cache: "no-store"
+  });
+  const version = String(manifest.location_count ?? "");
+  if (chainDataVersion !== version) {
+    chainCache.clear();
+    chainDataVersion = version;
+  }
+
   const cached = chainCache.get(chainSlug);
   if (cached) {
     return cached;
   }
   const collection = await fetchJson<LocationFeatureCollection>(
-    `${DATA_BASE}/locations/${encodeURIComponent(chainSlug)}.geojson`,
-    { cache: "force-cache" }
+    `${DATA_BASE}/locations/${encodeURIComponent(chainSlug)}.geojson?v=${encodeURIComponent(version)}`,
+    { cache: "no-store" }
   );
   chainCache.set(chainSlug, collection);
   return collection;
@@ -54,15 +64,16 @@ function thinFeatures(
   minLng: number,
   minLat: number,
   maxLng: number,
-  maxLat: number
+  maxLat: number,
+  maxFeatures: number = MAX_BBOX_FEATURES
 ): LocationFeatureCollection["features"] {
-  if (features.length <= MAX_BBOX_FEATURES) {
+  if (features.length <= maxFeatures) {
     return features;
   }
 
   const width = Math.max(maxLng - minLng, 0.001);
   const height = Math.max(maxLat - minLat, 0.001);
-  const gridDeg = Math.max(Math.sqrt((width * height) / MAX_BBOX_FEATURES) * 0.9, 0.002);
+  const gridDeg = Math.max(Math.sqrt((width * height) / maxFeatures) * 0.9, 0.002);
   const cells = new Map<string, (typeof features)[number]>();
 
   for (const feature of features) {
@@ -76,7 +87,7 @@ function thinFeatures(
     }
   }
 
-  return Array.from(cells.values()).slice(0, MAX_BBOX_FEATURES);
+  return Array.from(cells.values()).slice(0, maxFeatures);
 }
 
 export async function loadLocationsForBbox(params: {
@@ -91,7 +102,7 @@ export async function loadLocationsForBbox(params: {
   }
 
   const collections = await Promise.all(params.chains.map((slug) => loadChainLocations(slug)));
-  const inBbox = collections.flatMap((collection) =>
+  const perChainInBbox = collections.map((collection) =>
     collection.features.filter((feature) => {
       if (feature.geometry.type !== "Point") {
         return false;
@@ -101,9 +112,26 @@ export async function loadLocationsForBbox(params: {
     })
   );
 
+  // Equal per-chain budget so one huge chain does not consume the whole cap.
+  const chainCount = Math.max(perChainInBbox.length, 1);
+  const perChainBudget = Math.max(Math.ceil(MAX_BBOX_FEATURES / chainCount), 400);
+  const thinned = perChainInBbox.flatMap((features) =>
+    thinFeatures(features, params.minLng, params.minLat, params.maxLng, params.maxLat, perChainBudget)
+  );
+
   return {
     type: "FeatureCollection",
-    features: thinFeatures(inBbox, params.minLng, params.minLat, params.maxLng, params.maxLat)
+    features:
+      thinned.length > MAX_BBOX_FEATURES
+        ? thinFeatures(
+            thinned,
+            params.minLng,
+            params.minLat,
+            params.maxLng,
+            params.maxLat,
+            MAX_BBOX_FEATURES
+          )
+        : thinned
   };
 }
 
