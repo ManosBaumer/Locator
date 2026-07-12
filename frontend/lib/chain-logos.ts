@@ -10,6 +10,7 @@ export const CHAIN_LOGO_SLUGS = [
   "mcdonalds",
   "kfc",
   "mixue",
+  "heytea",
   "7fresh"
 ] as const;
 
@@ -27,6 +28,7 @@ export const CHAIN_LABELS: Record<ChainLogoSlug, string> = {
   mcdonalds: "麦当劳 / McDonald's",
   kfc: "肯德基 / KFC",
   mixue: "蜜雪冰城 / Mixue",
+  heytea: "喜茶 / HeyTea",
   "7fresh": "七鲜 / 7FRESH"
 };
 
@@ -84,6 +86,8 @@ export const CHAIN_ICON_IMAGE_EXPRESSION = [
   "chain-kfc",
   "mixue",
   "chain-mixue",
+  "heytea",
+  "chain-heytea",
   "7fresh",
   "chain-7fresh",
   "chain-default"

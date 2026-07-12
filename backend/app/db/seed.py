@@ -94,6 +94,13 @@ CHAINS = [
         "store_locator_url": "https://mxsa.mxbc.net/api/v2/shopinfo/findNear",
     },
     {
+        "slug": "heytea",
+        "name": "喜茶 / HeyTea",
+        "category_slug": "tea-shop",
+        "website": "https://www.heytea.com/",
+        "store_locator_url": "https://go.heytea.com/api/service-smc/grayapi/shop-list",
+    },
+    {
         "slug": "7fresh",
         "name": "七鲜 / 7FRESH",
         "category_slug": "supermarket",

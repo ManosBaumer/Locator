@@ -28,6 +28,13 @@
     "location_count": 71
   },
   {
+    "id": 13,
+    "name": "喜茶 / HeyTea",
+    "slug": "heytea",
+    "category_slug": "tea-shop",
+    "location_count": 3559
+  },
+  {
     "id": 2,
     "name": "大润发 / RT-Mart",
     "slug": "rt-mart",
