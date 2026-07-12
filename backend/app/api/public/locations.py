@@ -14,7 +14,7 @@ router = APIRouter(prefix="/locations", tags=["public:locations"])
 
 # Cap bbox payloads for map rendering; when exceeded, thin points on a grid so every
 # region is represented instead of returning an arbitrary first N rows.
-MAX_BBOX_FEATURES = 10_000
+MAX_BBOX_FEATURES = 50_000
 
 
 @router.get("/bbox")

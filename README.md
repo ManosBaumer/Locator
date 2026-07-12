@@ -60,13 +60,22 @@ git push
 
 ### Mixue (蜜雪冰城) — static scrape (no Docker)
 
-Uses the WeChat mini-program API (`scripts/lib/mixue-api.js`). Grid search + pagination, writes GeoJSON directly:
+Uses the WeChat mini-program API (`scripts/lib/mixue-api.js`). **Per-city** bounded adaptive grid (~370 prefecture centers from Amap), writes GeoJSON directly:
 
 ```powershell
-node scripts/scrape-mixue.js              # full mainland (~hours; resumable)
-node scripts/scrape-mixue.js --test-beijing
-node scripts/scrape-mixue.js --resume     # after interrupt
+node scripts/scrape-mixue.js              # all mainland cities (~hours; resumable)
+node scripts/scrape-mixue.js --test-guangzhou
+node scripts/scrape-mixue.js --resume     # after interrupt (migrates old nationwide checkpoints)
 node scripts/scrape-mixue.js --region east-south
+```
+
+Requires `AMAP_API_KEY` in `.env` on first run (caches city list to `data/mixue-city-centers.json`).
+
+After the city crawl, add countryside stores without losing city data:
+
+```powershell
+node scripts/scrape-mixue.js --backup-city --resume          # snapshot → data/mixue-city-backup.json
+node scripts/scrape-mixue.js --merge-grid --resume --workers 16  # nationwide grid, deduped by shop id
 ```
 
 Output: `frontend/public/data/locations/mixue.geojson` (checkpoint in `data/mixue-checkpoint.json`, gitignored).

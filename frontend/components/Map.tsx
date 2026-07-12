@@ -15,7 +15,7 @@ type Props = {
 
 const DEFAULT_CENTER: [number, number] = [104.1954, 35.8617];
 const DEFAULT_ZOOM = 3.7;
-const DATA_DEBOUNCE_MS = 600;
+const DATA_DEBOUNCE_MS = 250;
 const SOURCE_ID = "locations";
 const POINTS_LAYER = "location-points";
 

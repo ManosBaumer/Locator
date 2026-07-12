@@ -9,6 +9,7 @@ CATEGORY_DEFS = [
     {"name": "Supermarkets", "slug": "supermarket"},
     {"name": "Convenience Stores", "slug": "convenience"},
     {"name": "Fast Food", "slug": "fast-food"},
+    {"name": "Tea Shop", "slug": "tea-shop"},
 ]
 
 CHAINS = [
@@ -88,7 +89,7 @@ CHAINS = [
     {
         "slug": "mixue",
         "name": "蜜雪冰城 / Mixue",
-        "category_slug": "fast-food",
+        "category_slug": "tea-shop",
         "website": "https://www.mxbc.com/",
         "store_locator_url": "https://mxsa.mxbc.net/api/v2/shopinfo/findNear",
     },

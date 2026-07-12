@@ -1,7 +1,7 @@
 import type { Category, Chain, LocationFeatureCollection, LocationProperties } from "./types";
 
 const DATA_BASE = "/data";
-const MAX_BBOX_FEATURES = 10_000;
+const MAX_BBOX_FEATURES = 50_000;
 
 const chainCache = new Map<string, LocationFeatureCollection>();
 let chainDataVersion: string | null = null;
