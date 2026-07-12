@@ -6,7 +6,7 @@ import { GlassScrollArea } from "@/components/GlassScrollArea";
 import { SITE_NAME } from "@/lib/site";
 import type { Category, Chain } from "@/lib/types";
 import type { HTMLAttributes } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Props = {
   categories: Category[];
@@ -18,6 +18,7 @@ type Props = {
   dragHandleProps?: HTMLAttributes<HTMLElement>;
   isDragging?: boolean;
   onMinimize?: () => void;
+  onHeaderHeight?: (height: number) => void;
   onCategoriesChange: (slugs: string[]) => void;
   onChainsChange: (slugs: string[]) => void;
 };
@@ -32,11 +33,13 @@ export function FilterPanel({
   dragHandleProps,
   isDragging = false,
   onMinimize,
+  onHeaderHeight,
   onCategoriesChange,
   onChainsChange
 }: Props) {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set());
   const [chainSearch, setChainSearch] = useState("");
+  const headerRef = useRef<HTMLElement>(null);
 
   const normalizedSearch = chainSearch.trim().toLowerCase();
 
@@ -113,6 +116,26 @@ export function FilterPanel({
     onChainsChange(allSelected ? [] : allChainSlugs);
   }
 
+  useEffect(() => {
+    if (!isBottomSheet || !onHeaderHeight) {
+      return;
+    }
+
+    const header = headerRef.current;
+    if (!header) {
+      return;
+    }
+
+    const reportHeight = () => {
+      onHeaderHeight(header.getBoundingClientRect().height);
+    };
+
+    reportHeight();
+    const observer = new ResizeObserver(reportHeight);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, [isBottomSheet, onHeaderHeight, selectedCount]);
+
   const selectionControls = (
     <div className="flex shrink-0 items-center gap-2">
       <button
@@ -150,16 +173,20 @@ export function FilterPanel({
       }`}
     >
       <header
+        ref={isBottomSheet ? headerRef : undefined}
         className={`glass-panel-header shrink-0 px-3 ${
           isBottomSheet ? "rounded-t-[1.35rem] py-0" : "py-3"
         }`}
       >
         {isBottomSheet ? (
-          <div
-            {...dragHandleProps}
-            className={`bottom-sheet-grab flex w-full flex-col items-stretch justify-center gap-2 py-3 ${dragHandleProps?.className ?? ""}`}
-          >
-            <span className="bottom-sheet-handle mx-auto" aria-hidden="true" />
+          <div className="flex w-full flex-col py-3">
+            <div
+              {...dragHandleProps}
+              className={`bottom-sheet-grab flex w-full flex-col items-stretch ${dragHandleProps?.className ?? ""}`}
+            >
+              <span className="bottom-sheet-handle mx-auto shrink-0" aria-hidden="true" />
+              <div className="min-h-5 w-full shrink-0" aria-hidden="true" />
+            </div>
             <div className="flex w-full items-center justify-between gap-3 px-1">
               <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
                 {SITE_NAME}

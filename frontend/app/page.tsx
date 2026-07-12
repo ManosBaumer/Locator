@@ -21,7 +21,8 @@ export default function HomePage() {
     isExpanded: isSheetExpanded,
     sheetStyle,
     dragHandleProps: sheetHandleProps,
-    isDragging: isSheetDragging
+    isDragging: isSheetDragging,
+    setMinSheetHeight
   } = useBottomSheet();
 
   const [isPanelMinimized, setIsPanelMinimized] = useState(false);
@@ -107,6 +108,7 @@ export default function HomePage() {
           variant="bottom-sheet"
           dragHandleProps={sheetHandleProps}
           isDragging={isSheetDragging}
+          onHeaderHeight={setMinSheetHeight}
         />
       </aside>
 

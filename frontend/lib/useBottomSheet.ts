@@ -11,8 +11,8 @@ import {
   type PointerEvent as ReactPointerEvent
 } from "react";
 
-/** Visible peek height when the sheet is at its minimum. */
-const MIN_SHEET_HEIGHT_PX = 92;
+/** Fallback peek height before the panel header is measured. */
+const MIN_SHEET_HEIGHT_PX = 80;
 /** Max sheet height as a fraction of the viewport (slightly taller than before). */
 const MAX_SHEET_VH = 0.78;
 
@@ -22,18 +22,19 @@ type DragState = {
   originHeight: number;
 };
 
-function computeMaxHeight(): number {
+function computeMaxHeight(minHeight: number): number {
   if (typeof window === "undefined") {
-    return MIN_SHEET_HEIGHT_PX;
+    return minHeight;
   }
   return Math.round(window.innerHeight * MAX_SHEET_VH);
 }
 
-function clampHeight(height: number, max: number): number {
-  return Math.min(Math.max(height, MIN_SHEET_HEIGHT_PX), max);
+function clampHeight(height: number, min: number, max: number): number {
+  return Math.min(Math.max(height, min), max);
 }
 
 export function useBottomSheet() {
+  const [minSheetHeight, setMinSheetHeightState] = useState(MIN_SHEET_HEIGHT_PX);
   const [sheetHeight, setSheetHeight] = useState(MIN_SHEET_HEIGHT_PX);
   const [maxHeight, setMaxHeight] = useState(MIN_SHEET_HEIGHT_PX);
   const [isDragging, setIsDragging] = useState(false);
@@ -41,6 +42,7 @@ export function useBottomSheet() {
   const dragStateRef = useRef<DragState | null>(null);
   const sheetHeightRef = useRef(sheetHeight);
   const maxHeightRef = useRef(maxHeight);
+  const minHeightRef = useRef(minSheetHeight);
 
   useEffect(() => {
     sheetHeightRef.current = sheetHeight;
@@ -50,11 +52,33 @@ export function useBottomSheet() {
     maxHeightRef.current = maxHeight;
   }, [maxHeight]);
 
+  useEffect(() => {
+    minHeightRef.current = minSheetHeight;
+  }, [minSheetHeight]);
+
+  const setMinSheetHeight = useCallback((height: number) => {
+    const nextMin = Math.ceil(height);
+    if (nextMin === minHeightRef.current) {
+      return;
+    }
+
+    const previousMin = minHeightRef.current;
+    minHeightRef.current = nextMin;
+    setMinSheetHeightState(nextMin);
+    setSheetHeight((current) => {
+      if (current <= previousMin + 2) {
+        return nextMin;
+      }
+      return clampHeight(current, nextMin, maxHeightRef.current);
+    });
+  }, []);
+
   const refreshMetrics = useCallback(() => {
-    const max = computeMaxHeight();
+    const min = minHeightRef.current;
+    const max = computeMaxHeight(min);
     setMaxHeight(max);
     maxHeightRef.current = max;
-    setSheetHeight((current) => clampHeight(current, max));
+    setSheetHeight((current) => clampHeight(current, min, max));
     setIsReady(true);
   }, []);
 
@@ -76,7 +100,13 @@ export function useBottomSheet() {
       }
 
       const deltaY = event.clientY - dragState.startY;
-      setSheetHeight(clampHeight(dragState.originHeight - deltaY, maxHeightRef.current));
+      setSheetHeight(
+        clampHeight(
+          dragState.originHeight - deltaY,
+          minHeightRef.current,
+          maxHeightRef.current
+        )
+      );
     }
 
     function endDrag(event: PointerEvent) {
@@ -142,7 +172,7 @@ export function useBottomSheet() {
   };
 
   const isExpanded =
-    sheetHeight > MIN_SHEET_HEIGHT_PX + (maxHeight - MIN_SHEET_HEIGHT_PX) * 0.08;
+    sheetHeight > minSheetHeight + (maxHeight - minSheetHeight) * 0.08;
 
   return {
     sheetHeight,
@@ -150,7 +180,8 @@ export function useBottomSheet() {
     isExpanded,
     sheetStyle,
     dragHandleProps,
-    minHeight: MIN_SHEET_HEIGHT_PX,
-    maxHeight
+    minHeight: minSheetHeight,
+    maxHeight,
+    setMinSheetHeight
   };
 };

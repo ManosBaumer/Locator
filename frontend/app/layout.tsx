@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { mituBrandFont } from "@/lib/fonts";
 import { SITE_DESCRIPTION, SITE_FAVICON_SRC, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={mituBrandFont.variable}>
+      <body className={mituBrandFont.className}>{children}</body>
     </html>
   );
 }
