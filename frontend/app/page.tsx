@@ -18,12 +18,11 @@ export default function HomePage() {
     initialPosition: { x: PANEL_MARGIN, y: PANEL_MARGIN }
   });
   const {
-    snap: sheetSnap,
+    isExpanded: isSheetExpanded,
     sheetStyle,
-    handleProps: sheetHandleProps,
-    isDragging: isSheetDragging,
-    toggleSnap: toggleSheet
-  } = useBottomSheet("collapsed");
+    dragHandleProps: sheetHandleProps,
+    isDragging: isSheetDragging
+  } = useBottomSheet();
 
   const [isPanelMinimized, setIsPanelMinimized] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -91,20 +90,11 @@ export default function HomePage() {
     <main className="relative h-dvh w-full overflow-hidden">
       <Map selectedChains={selectedChains} />
 
-      {/* Mobile: swipeable bottom sheet */}
-      {sheetSnap === "expanded" ? (
-        <button
-          type="button"
-          aria-label="Close chains panel"
-          className="fixed inset-0 z-[15] bg-slate-950/20 backdrop-blur-[1px] md:hidden"
-          onClick={() => toggleSheet()}
-        />
-      ) : null}
-
+      {/* Mobile: draggable bottom sheet */}
       <aside
-        className="fixed inset-x-0 bottom-0 z-20 overflow-hidden will-change-transform md:hidden"
+        className="fixed inset-x-0 bottom-0 z-20 overflow-hidden md:hidden"
         style={sheetStyle}
-        aria-expanded={sheetSnap === "expanded"}
+        aria-expanded={isSheetExpanded}
       >
         {loadError ? (
           <div className="glass-panel mx-3 mb-2 rounded-2xl px-4 py-3 text-sm text-amber-950">
@@ -117,7 +107,6 @@ export default function HomePage() {
           variant="bottom-sheet"
           dragHandleProps={sheetHandleProps}
           isDragging={isSheetDragging}
-          onSheetToggle={toggleSheet}
         />
       </aside>
 

@@ -11,60 +11,58 @@ import {
   type PointerEvent as ReactPointerEvent
 } from "react";
 
-export type BottomSheetSnap = "collapsed" | "expanded";
-
-const COLLAPSED_HEIGHT_PX = 76;
-const EXPANDED_VH = 0.62;
+/** Visible peek height when the sheet is at its minimum. */
+const MIN_SHEET_HEIGHT_PX = 92;
+/** Max sheet height as a fraction of the viewport (slightly taller than before). */
+const MAX_SHEET_VH = 0.78;
 
 type DragState = {
   pointerId: number;
   startY: number;
-  originTranslateY: number;
+  originHeight: number;
 };
 
-function expandedHeightPx(): number {
-  return Math.round(window.innerHeight * EXPANDED_VH);
+function computeMaxHeight(): number {
+  if (typeof window === "undefined") {
+    return MIN_SHEET_HEIGHT_PX;
+  }
+  return Math.round(window.innerHeight * MAX_SHEET_VH);
 }
 
-function hiddenOffsetPx(): number {
-  return Math.max(0, expandedHeightPx() - COLLAPSED_HEIGHT_PX);
+function clampHeight(height: number, max: number): number {
+  return Math.min(Math.max(height, MIN_SHEET_HEIGHT_PX), max);
 }
 
-function snapTranslateY(snap: BottomSheetSnap): number {
-  return snap === "collapsed" ? hiddenOffsetPx() : 0;
-}
-
-export function useBottomSheet(initialSnap: BottomSheetSnap = "collapsed") {
-  const [snap, setSnap] = useState<BottomSheetSnap>(initialSnap);
-  const [translateY, setTranslateY] = useState(0);
-  const [expandedHeight, setExpandedHeight] = useState(COLLAPSED_HEIGHT_PX);
+export function useBottomSheet() {
+  const [sheetHeight, setSheetHeight] = useState(MIN_SHEET_HEIGHT_PX);
+  const [maxHeight, setMaxHeight] = useState(MIN_SHEET_HEIGHT_PX);
   const [isDragging, setIsDragging] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const dragStateRef = useRef<DragState | null>(null);
-  const translateYRef = useRef(translateY);
+  const sheetHeightRef = useRef(sheetHeight);
+  const maxHeightRef = useRef(maxHeight);
 
   useEffect(() => {
-    translateYRef.current = translateY;
-  }, [translateY]);
+    sheetHeightRef.current = sheetHeight;
+  }, [sheetHeight]);
+
+  useEffect(() => {
+    maxHeightRef.current = maxHeight;
+  }, [maxHeight]);
 
   const refreshMetrics = useCallback(() => {
-    const nextExpanded = expandedHeightPx();
-    setExpandedHeight(nextExpanded);
-    setTranslateY(snapTranslateY(snap));
+    const max = computeMaxHeight();
+    setMaxHeight(max);
+    maxHeightRef.current = max;
+    setSheetHeight((current) => clampHeight(current, max));
     setIsReady(true);
-  }, [snap]);
+  }, []);
 
   useEffect(() => {
     refreshMetrics();
     window.addEventListener("resize", refreshMetrics);
     return () => window.removeEventListener("resize", refreshMetrics);
   }, [refreshMetrics]);
-
-  useEffect(() => {
-    if (!isDragging) {
-      setTranslateY(snapTranslateY(snap));
-    }
-  }, [snap, isDragging]);
 
   useEffect(() => {
     if (!isDragging) {
@@ -78,8 +76,7 @@ export function useBottomSheet(initialSnap: BottomSheetSnap = "collapsed") {
       }
 
       const deltaY = event.clientY - dragState.startY;
-      const hidden = hiddenOffsetPx();
-      setTranslateY(Math.min(Math.max(dragState.originTranslateY + deltaY, 0), hidden));
+      setSheetHeight(clampHeight(dragState.originHeight - deltaY, maxHeightRef.current));
     }
 
     function endDrag(event: PointerEvent) {
@@ -88,11 +85,8 @@ export function useBottomSheet(initialSnap: BottomSheetSnap = "collapsed") {
         return;
       }
 
-      const hidden = hiddenOffsetPx();
-      const current = translateYRef.current;
       dragStateRef.current = null;
       setIsDragging(false);
-      setSnap(current < hidden / 2 ? "expanded" : "collapsed");
     }
 
     window.addEventListener("pointermove", handlePointerMove);
@@ -116,7 +110,7 @@ export function useBottomSheet(initialSnap: BottomSheetSnap = "collapsed") {
     dragStateRef.current = {
       pointerId: event.pointerId,
       startY: event.clientY,
-      originTranslateY: translateYRef.current
+      originHeight: sheetHeightRef.current
     };
 
     setIsDragging(true);
@@ -128,40 +122,35 @@ export function useBottomSheet(initialSnap: BottomSheetSnap = "collapsed") {
       return;
     }
 
-    const hidden = hiddenOffsetPx();
-    const current = translateYRef.current;
     dragStateRef.current = null;
     setIsDragging(false);
-    setSnap(current < hidden / 2 ? "expanded" : "collapsed");
     event.currentTarget.releasePointerCapture(event.pointerId);
   }, []);
 
-  const handleProps: HTMLAttributes<HTMLElement> = useMemo(
+  const dragHandleProps: HTMLAttributes<HTMLElement> = useMemo(
     () => ({
       onPointerDown: handlePointerDown,
       onPointerUp: handlePointerUp,
-      className: isDragging ? "cursor-grabbing touch-none" : "cursor-grab touch-none"
+      className: isDragging ? "cursor-grabbing touch-none select-none" : "cursor-grab touch-none select-none"
     }),
     [handlePointerDown, handlePointerUp, isDragging]
   );
 
   const sheetStyle: CSSProperties = {
-    height: expandedHeight,
-    transform: `translateY(${translateY}px)`,
-    transition: isDragging ? "none" : "transform 0.28s cubic-bezier(0.32, 0.72, 0, 1)",
+    height: sheetHeight,
     visibility: isReady ? "visible" : "hidden"
   };
 
-  function toggleSnap() {
-    setSnap((current) => (current === "collapsed" ? "expanded" : "collapsed"));
-  }
+  const isExpanded =
+    sheetHeight > MIN_SHEET_HEIGHT_PX + (maxHeight - MIN_SHEET_HEIGHT_PX) * 0.08;
 
   return {
-    snap,
+    sheetHeight,
     isDragging,
+    isExpanded,
     sheetStyle,
-    handleProps,
-    toggleSnap,
-    setSnap
+    dragHandleProps,
+    minHeight: MIN_SHEET_HEIGHT_PX,
+    maxHeight
   };
-}
+};

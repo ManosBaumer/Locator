@@ -101,7 +101,11 @@ body {
   }
 
   .bottom-sheet-handle {
-    @apply h-1 w-10 rounded-full bg-slate-500/35;
+    @apply h-1.5 w-12 rounded-full bg-slate-500/40;
+  }
+
+  .bottom-sheet-grab {
+    -webkit-tap-highlight-color: transparent;
   }
 
   .glass-checkbox {

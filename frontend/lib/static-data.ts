@@ -1,7 +1,10 @@
 import type { Category, Chain, LocationFeatureCollection, LocationProperties } from "./types";
 
 const DATA_BASE = "/data";
-const MAX_BBOX_FEATURES = 50_000;
+/** Hard cap on markers drawn for the current map view. */
+const MAX_BBOX_FEATURES = 40_000;
+/** Per-chain cap — fixed so toggling filters does not inflate remaining chains. */
+const PER_CHAIN_BUDGET = 3_000;
 
 const chainCache = new Map<string, LocationFeatureCollection>();
 let chainDataVersion: string | null = null;
@@ -76,7 +79,11 @@ function thinFeatures(
   const gridDeg = Math.max(Math.sqrt((width * height) / maxFeatures) * 0.9, 0.002);
   const cells = new Map<string, (typeof features)[number]>();
 
-  for (const feature of features) {
+  const sorted = [...features].sort(
+    (left, right) => (left.properties?.id ?? 0) - (right.properties?.id ?? 0)
+  );
+
+  for (const feature of sorted) {
     if (feature.geometry.type !== "Point") {
       continue;
     }
@@ -90,6 +97,64 @@ function thinFeatures(
   return Array.from(cells.values()).slice(0, maxFeatures);
 }
 
+/** Round-robin merge so one chain does not paint over every other at overlaps. */
+function interleaveChainFeatures(
+  perChainFeatures: LocationFeatureCollection["features"][]
+): LocationFeatureCollection["features"] {
+  const merged: LocationFeatureCollection["features"] = [];
+  const indices = new Array(perChainFeatures.length).fill(0);
+
+  let remaining = perChainFeatures.reduce((sum, features) => sum + features.length, 0);
+  while (remaining > 0) {
+    for (let chainIndex = 0; chainIndex < perChainFeatures.length; chainIndex++) {
+      const features = perChainFeatures[chainIndex];
+      const index = indices[chainIndex];
+      if (index >= features.length) {
+        continue;
+      }
+
+      merged.push(features[index]);
+      indices[chainIndex] += 1;
+      remaining -= 1;
+    }
+  }
+
+  return merged;
+}
+
+function capCombinedFeatures(
+  perChainFeatures: LocationFeatureCollection["features"][],
+  maxTotal: number
+): LocationFeatureCollection["features"] {
+  let cappedPerChain = perChainFeatures;
+
+  while (true) {
+    const merged = interleaveChainFeatures(cappedPerChain);
+    if (merged.length <= maxTotal) {
+      return merged;
+    }
+
+    const total = cappedPerChain.reduce((sum, features) => sum + features.length, 0);
+    if (total === 0) {
+      return merged.slice(0, maxTotal);
+    }
+
+    const ratio = maxTotal / total;
+    const next = cappedPerChain.map((features) => {
+      if (features.length === 0) {
+        return features;
+      }
+      return features.slice(0, Math.max(1, Math.floor(features.length * ratio)));
+    });
+
+    if (next.every((features, index) => features.length === cappedPerChain[index].length)) {
+      return interleaveChainFeatures(next).slice(0, maxTotal);
+    }
+
+    cappedPerChain = next;
+  }
+}
+
 export async function loadLocationsForBbox(params: {
   minLng: number;
   minLat: number;
@@ -101,7 +166,8 @@ export async function loadLocationsForBbox(params: {
     return { type: "FeatureCollection", features: [] };
   }
 
-  const collections = await Promise.all(params.chains.map((slug) => loadChainLocations(slug)));
+  const chainSlugs = [...params.chains].sort();
+  const collections = await Promise.all(chainSlugs.map((slug) => loadChainLocations(slug)));
   const perChainInBbox = collections.map((collection) =>
     collection.features.filter((feature) => {
       if (feature.geometry.type !== "Point") {
@@ -112,26 +178,20 @@ export async function loadLocationsForBbox(params: {
     })
   );
 
-  // Equal per-chain budget so one huge chain does not consume the whole cap.
-  const chainCount = Math.max(perChainInBbox.length, 1);
-  const perChainBudget = Math.max(Math.ceil(MAX_BBOX_FEATURES / chainCount), 400);
-  const thinned = perChainInBbox.flatMap((features) =>
-    thinFeatures(features, params.minLng, params.minLat, params.maxLng, params.maxLat, perChainBudget)
+  const perChainThinned = perChainInBbox.map((features) =>
+    thinFeatures(
+      features,
+      params.minLng,
+      params.minLat,
+      params.maxLng,
+      params.maxLat,
+      PER_CHAIN_BUDGET
+    )
   );
 
   return {
     type: "FeatureCollection",
-    features:
-      thinned.length > MAX_BBOX_FEATURES
-        ? thinFeatures(
-            thinned,
-            params.minLng,
-            params.minLat,
-            params.maxLng,
-            params.maxLat,
-            MAX_BBOX_FEATURES
-          )
-        : thinned
+    features: capCombinedFeatures(perChainThinned, MAX_BBOX_FEATURES)
   };
 }
 

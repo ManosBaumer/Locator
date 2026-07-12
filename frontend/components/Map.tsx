@@ -15,6 +15,8 @@ type Props = {
 
 const DEFAULT_CENTER: [number, number] = [104.1954, 35.8617];
 const DEFAULT_ZOOM = 3.7;
+/** Prevent zooming out far enough for the world to repeat (duplicates markers). */
+const MIN_ZOOM = 3;
 const DATA_DEBOUNCE_MS = 250;
 const SOURCE_ID = "locations";
 const POINTS_LAYER = "location-points";
@@ -174,6 +176,8 @@ export const Map = memo(function Map({ selectedChains }: Props) {
       style: process.env.NEXT_PUBLIC_MAP_TILE_URL ?? "https://tiles.openfreemap.org/styles/liberty",
       center: DEFAULT_CENTER,
       zoom: DEFAULT_ZOOM,
+      minZoom: MIN_ZOOM,
+      renderWorldCopies: false,
       maxTileCacheSize: 512
     });
 
