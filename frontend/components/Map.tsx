@@ -1,8 +1,9 @@
 "use client";
 
-import { loadLocationsForBbox } from "@/lib/static-data";
+import { loadLocationsForBbox, MAX_BBOX_FEATURES_DESKTOP, MAX_BBOX_FEATURES_MOBILE } from "@/lib/static-data";
 import { CHAIN_ICON_IMAGE_EXPRESSION, loadChainMarkerImages } from "@/lib/chain-logos";
 import { enableEaseWheelZoom } from "@/lib/ease-wheel-zoom";
+import { MOBILE_MEDIA_QUERY, useMediaQuery } from "@/lib/useMediaQuery";
 import type { LocationFeatureCollection, LocationProperties } from "@/lib/types";
 import maplibregl, { GeoJSONSource, Map as MapLibreMap } from "maplibre-gl";
 import { memo, useEffect, useRef, useState } from "react";
@@ -101,10 +102,17 @@ export const Map = memo(function Map({ selectedChains }: Props) {
   const loadGenerationRef = useRef(0);
   const [error, setError] = useState<string | null>(null);
   const selectedChainsKey = chainsKey(selectedChains);
+  const isMobile = useMediaQuery(MOBILE_MEDIA_QUERY);
+  const maxFeatures = isMobile ? MAX_BBOX_FEATURES_MOBILE : MAX_BBOX_FEATURES_DESKTOP;
+  const maxFeaturesRef = useRef(maxFeatures);
 
   useEffect(() => {
     selectedChainsRef.current = selectedChains;
   }, [selectedChains]);
+
+  useEffect(() => {
+    maxFeaturesRef.current = maxFeatures;
+  }, [maxFeatures]);
 
   async function loadBounds() {
     const map = mapRef.current;
@@ -130,7 +138,8 @@ export const Map = memo(function Map({ selectedChains }: Props) {
         minLat: bounds.getSouth(),
         maxLng: bounds.getEast(),
         maxLat: bounds.getNorth(),
-        chains: selectedChainsRef.current
+        chains: selectedChainsRef.current,
+        maxFeatures: maxFeaturesRef.current
       });
       if (generation !== loadGenerationRef.current) {
         return;
@@ -199,7 +208,13 @@ export const Map = memo(function Map({ selectedChains }: Props) {
 
     map.on("moveend", scheduleDataRefresh);
 
+    const resizeMap = () => map.resize();
+    window.addEventListener("resize", resizeMap);
+    window.visualViewport?.addEventListener("resize", resizeMap);
+
     return () => {
+      window.removeEventListener("resize", resizeMap);
+      window.visualViewport?.removeEventListener("resize", resizeMap);
       disableEaseWheelZoom();
       if (dataTimeoutRef.current) {
         clearTimeout(dataTimeoutRef.current);
@@ -213,7 +228,7 @@ export const Map = memo(function Map({ selectedChains }: Props) {
     if (mapRef.current) {
       void loadBounds();
     }
-  }, [selectedChainsKey]);
+  }, [selectedChainsKey, maxFeatures]);
 
   return (
     <div className="absolute inset-0 h-full w-full">

@@ -11,12 +11,21 @@
 html,
 body {
   height: 100%;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 body {
   margin: 0;
   overflow: hidden;
-  background: #0f172a;
+  /* Match map tiles so any edge gap blends instead of showing dark slate. */
+  background: #ebe6dc;
+}
+
+/* Map fills the screen; keep controls out of notch / home indicator. */
+.maplibregl-ctrl-top-right {
+  top: max(0.625rem, env(safe-area-inset-top, 0px));
+  right: max(0.625rem, env(safe-area-inset-right, 0px));
 }
 
 @layer components {

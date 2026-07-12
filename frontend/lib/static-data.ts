@@ -1,8 +1,10 @@
 import type { Category, Chain, LocationFeatureCollection, LocationProperties } from "./types";
 
 const DATA_BASE = "/data";
-/** Hard cap on markers drawn for the current map view. */
-const MAX_BBOX_FEATURES = 40_000;
+/** Hard cap on markers drawn for the current map view (desktop). */
+export const MAX_BBOX_FEATURES_DESKTOP = 40_000;
+/** Hard cap on markers drawn for the current map view (mobile). */
+export const MAX_BBOX_FEATURES_MOBILE = 8_000;
 /** Per-chain cap — fixed so toggling filters does not inflate remaining chains. */
 const PER_CHAIN_BUDGET = 3_000;
 
@@ -68,7 +70,7 @@ function thinFeatures(
   minLat: number,
   maxLng: number,
   maxLat: number,
-  maxFeatures: number = MAX_BBOX_FEATURES
+  maxFeatures: number = MAX_BBOX_FEATURES_DESKTOP
 ): LocationFeatureCollection["features"] {
   if (features.length <= maxFeatures) {
     return features;
@@ -161,10 +163,13 @@ export async function loadLocationsForBbox(params: {
   maxLng: number;
   maxLat: number;
   chains: string[];
+  maxFeatures?: number;
 }): Promise<LocationFeatureCollection> {
   if (params.chains.length === 0) {
     return { type: "FeatureCollection", features: [] };
   }
+
+  const maxFeatures = params.maxFeatures ?? MAX_BBOX_FEATURES_DESKTOP;
 
   const chainSlugs = [...params.chains].sort();
   const collections = await Promise.all(chainSlugs.map((slug) => loadChainLocations(slug)));
@@ -191,7 +196,7 @@ export async function loadLocationsForBbox(params: {
 
   return {
     type: "FeatureCollection",
-    features: capCombinedFeatures(perChainThinned, MAX_BBOX_FEATURES)
+    features: capCombinedFeatures(perChainThinned, maxFeatures)
   };
 }
 

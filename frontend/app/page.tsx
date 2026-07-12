@@ -88,7 +88,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative h-dvh w-full overflow-hidden">
+    <main className="fixed inset-0 min-h-dvh w-full overflow-hidden">
       <Map selectedChains={selectedChains} />
 
       {/* Mobile: draggable bottom sheet */}
