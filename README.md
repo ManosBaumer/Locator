@@ -1,4 +1,4 @@
-# Locater
+# Mitu
 
 Geospatial retail-chain location aggregator for China. Map UI (Next.js + MapLibre) served from static GeoJSON — no live API required for viewing.
 

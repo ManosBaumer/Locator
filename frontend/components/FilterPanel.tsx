@@ -3,7 +3,7 @@
 import { ChainLogo } from "@/components/ChainLogo";
 import { GlassCheckbox } from "@/components/GlassCheckbox";
 import { GlassScrollArea } from "@/components/GlassScrollArea";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
+import { SITE_NAME } from "@/lib/site";
 import type { Category, Chain } from "@/lib/types";
 import type { HTMLAttributes } from "react";
 import { useEffect, useMemo, useState } from "react";
@@ -129,65 +129,52 @@ export function FilterPanel({
     </div>
   );
 
+  const minimizeButton = onMinimize ? (
+    <button
+      type="button"
+      aria-label="Minimize panel"
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white/35 hover:text-slate-800"
+      onPointerDown={(event) => event.stopPropagation()}
+      onClick={onMinimize}
+    >
+      <MinimizeIcon />
+    </button>
+  ) : null;
+
   return (
     <section
-      className={`glass-panel flex min-h-0 flex-col overflow-hidden [text-shadow:0_1px_1px_rgba(255,255,255,0.6)] ${
+      className={`glass-panel grid min-h-0 overflow-hidden [text-shadow:0_1px_1px_rgba(255,255,255,0.6)] ${
         isBottomSheet
-          ? "h-full rounded-t-[1.35rem] rounded-b-none border-b-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
-          : "max-h-[calc(100dvh-2rem)] rounded-2xl"
+          ? "h-full grid-rows-[auto_auto_minmax(0,1fr)] rounded-t-[1.35rem] rounded-b-none border-b-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          : "max-h-[calc(100dvh-2rem)] grid-rows-[auto_auto_minmax(0,1fr)] rounded-2xl"
       }`}
     >
       <header
         className={`glass-panel-header shrink-0 px-3 ${
-          isBottomSheet ? "rounded-t-[1.35rem] py-0" : "py-4"
+          isBottomSheet ? "rounded-t-[1.35rem] py-0" : "py-3"
         }`}
       >
         {isBottomSheet ? (
           <div
             {...dragHandleProps}
-            className={`bottom-sheet-grab flex min-h-[5.75rem] w-full flex-col items-stretch justify-center gap-3 py-3 ${dragHandleProps?.className ?? ""}`}
+            className={`bottom-sheet-grab flex w-full flex-col items-stretch justify-center gap-2 py-3 ${dragHandleProps?.className ?? ""}`}
           >
             <span className="bottom-sheet-handle mx-auto" aria-hidden="true" />
             <div className="flex w-full items-center justify-between gap-3 px-1">
-              <div className="min-w-0">
-                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                  {SITE_NAME}
-                </p>
-                <h2 className="mt-0.5 text-base font-semibold tracking-tight text-slate-900">
-                  Chains
-                </h2>
-              </div>
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                {SITE_NAME}
+              </p>
               {selectionControls}
             </div>
           </div>
         ) : (
-          <>
-            <div className="flex items-start gap-2">
-              <div
-                {...dragHandleProps}
-                className={`min-w-0 flex-1 touch-none select-none px-2 ${dragHandleProps?.className ?? ""} ${isDragging ? "cursor-grabbing" : dragHandleProps ? "cursor-grab" : ""}`}
-              >
-                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                  {SITE_NAME}
-                </p>
-                <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900">Chains</h2>
-                <p className="mt-0.5 text-xs text-slate-600">{SITE_TAGLINE}</p>
-              </div>
-
-              {onMinimize ? (
-                <button
-                  type="button"
-                  aria-label="Minimize panel"
-                  className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white/35 hover:text-slate-800"
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={onMinimize}
-                >
-                  <MinimizeIcon />
-                </button>
-              ) : null}
-            </div>
-            <div className="mt-3 flex justify-end px-2">{selectionControls}</div>
-          </>
+          <div
+            {...dragHandleProps}
+            className={`flex touch-none select-none items-center justify-between gap-2 px-1 ${dragHandleProps?.className ?? ""} ${isDragging ? "cursor-grabbing" : dragHandleProps ? "cursor-grab" : ""}`}
+          >
+            {minimizeButton}
+            {selectionControls}
+          </div>
         )}
       </header>
 
@@ -215,7 +202,7 @@ export function FilterPanel({
         </div>
       </div>
 
-      <GlassScrollArea className={isBottomSheet ? "min-h-0 flex-1" : undefined}>
+      <GlassScrollArea className="min-h-0">
         {!hasSearchResults ? (
           <p className="px-4 py-8 text-center text-sm text-slate-500">
             No chains match &ldquo;{chainSearch.trim()}&rdquo;
@@ -234,6 +221,10 @@ export function FilterPanel({
               : expandedCategories.has(category.slug);
             const selectedInCategory = allCategoryChains.filter((chain) =>
               selectedChains.includes(chain.slug)
+            );
+            const selectedStoreCount = selectedInCategory.reduce(
+              (sum, chain) => sum + (chain.location_count ?? 0),
+              0
             );
             const allSelected =
               allCategoryChains.length > 0 && selectedInCategory.length === allCategoryChains.length;
@@ -269,11 +260,23 @@ export function FilterPanel({
                     {category.name}
                   </button>
 
-                  <span className="shrink-0 rounded-full bg-white/30 px-2 py-0.5 text-xs tabular-nums text-slate-600">
-                    {normalizedSearch
-                      ? `${categoryChains.length} match${categoryChains.length === 1 ? "" : "es"}`
-                      : `${selectedInCategory.length}/${allCategoryChains.length}`}
-                  </span>
+                  <div className="flex shrink-0 items-center gap-2 tabular-nums">
+                    {normalizedSearch ? (
+                      <span className="rounded-full bg-white/30 px-2 py-0.5 text-[11px] text-slate-600">
+                        {categoryChains.length} match{categoryChains.length === 1 ? "" : "es"}
+                      </span>
+                    ) : (
+                      <>
+                        <span className="min-w-[2.25rem] text-right text-[11px] font-medium text-slate-600">
+                          {selectedInCategory.length}/{allCategoryChains.length}
+                        </span>
+                        <span className="h-3 w-px shrink-0 bg-slate-900/10" aria-hidden="true" />
+                        <span className="min-w-[2.5rem] text-right text-xs text-slate-500">
+                          {selectedStoreCount.toLocaleString()}
+                        </span>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 {expanded ? (

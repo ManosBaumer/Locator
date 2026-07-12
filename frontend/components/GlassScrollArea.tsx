@@ -109,10 +109,10 @@ export function GlassScrollArea({ children, className = "" }: Props) {
   }
 
   return (
-    <div className={`relative min-h-0 flex-1 ${className}`}>
+    <div className={`relative min-h-0 overflow-hidden ${className}`}>
       <div
         ref={scrollRef}
-        className="panel-scroll-hide h-full overflow-y-auto overscroll-contain py-3 pl-3 pr-8"
+        className="panel-scroll-hide h-full min-h-0 overflow-y-auto overscroll-contain py-3 pl-3 pr-8"
         onScroll={updateThumb}
       >
         {children}
