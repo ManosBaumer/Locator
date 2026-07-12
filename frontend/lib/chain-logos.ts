@@ -41,14 +41,16 @@ export function chainLabel(slug: string): string {
 
 export function chainLogoPath(slug: string): string {
   if (isKnownChainLogo(slug)) {
-    return `/logos/${slug}.png`;
+    const version = slug === "heytea" ? "?v=2" : "";
+    return `/logos/${slug}.png${version}`;
   }
   return "/logos/default.png";
 }
 
 export function chainMarkerPath(slug: string): string {
   if (isKnownChainLogo(slug)) {
-    return `/logos/${slug}-marker.png`;
+    const version = slug === "heytea" ? "?v=2" : "";
+    return `/logos/${slug}-marker.png${version}`;
   }
   return "/logos/default.png";
 }
