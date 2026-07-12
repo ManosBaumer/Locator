@@ -3,6 +3,7 @@
 import { ChainLogo } from "@/components/ChainLogo";
 import { GlassCheckbox } from "@/components/GlassCheckbox";
 import { GlassScrollArea } from "@/components/GlassScrollArea";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import type { Category, Chain } from "@/lib/types";
 import type { HTMLAttributes } from "react";
 import { useEffect, useState } from "react";
@@ -13,9 +14,11 @@ type Props = {
   selectedCategories: string[];
   selectedChains: string[];
   defaultExpandAll?: boolean;
+  variant?: "floating" | "bottom-sheet";
   dragHandleProps?: HTMLAttributes<HTMLElement>;
   isDragging?: boolean;
   onMinimize?: () => void;
+  onSheetToggle?: () => void;
   onCategoriesChange: (slugs: string[]) => void;
   onChainsChange: (slugs: string[]) => void;
 };
@@ -26,9 +29,11 @@ export function FilterPanel({
   selectedCategories,
   selectedChains,
   defaultExpandAll = false,
+  variant = "floating",
   dragHandleProps,
   isDragging = false,
   onMinimize,
+  onSheetToggle,
   onCategoriesChange,
   onChainsChange
 }: Props) {
@@ -77,31 +82,76 @@ export function FilterPanel({
     onCategoriesChange(selectedCategories.filter((slug) => slug !== categorySlug));
   }
 
-  return (
-    <section className="glass-panel flex max-h-[calc(100dvh-2rem)] min-h-0 flex-col overflow-hidden rounded-2xl [text-shadow:0_1px_1px_rgba(255,255,255,0.6)]">
-      <header className="glass-panel-header flex shrink-0 items-start gap-2 px-3 py-4">
-        <div
-          {...dragHandleProps}
-          className={`min-w-0 flex-1 touch-none select-none px-2 ${dragHandleProps?.className ?? ""} ${isDragging ? "cursor-grabbing" : dragHandleProps ? "cursor-grab" : ""}`}
-        >
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">Locater</p>
-          <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900">Chains</h2>
-        </div>
+  const isBottomSheet = variant === "bottom-sheet";
+  const selectedCount = selectedChains.length;
 
-        {onMinimize ? (
-          <button
-            type="button"
-            aria-label="Minimize panel"
-            className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white/35 hover:text-slate-800"
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={onMinimize}
+  return (
+    <section
+      className={`glass-panel flex min-h-0 flex-col overflow-hidden [text-shadow:0_1px_1px_rgba(255,255,255,0.6)] ${
+        isBottomSheet
+          ? "h-full rounded-t-[1.35rem] rounded-b-none border-b-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          : "max-h-[calc(100dvh-2rem)] rounded-2xl"
+      }`}
+    >
+      <header
+        className={`glass-panel-header flex shrink-0 flex-col gap-2 px-3 py-3 ${
+          isBottomSheet ? "rounded-t-[1.35rem]" : "py-4"
+        }`}
+      >
+        {isBottomSheet ? (
+          <div
+            {...dragHandleProps}
+            className={`flex flex-col items-center gap-2 ${dragHandleProps?.className ?? ""} ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
           >
-            <MinimizeIcon />
-          </button>
-        ) : null}
+            <span className="bottom-sheet-handle" aria-hidden="true" />
+            <button
+              type="button"
+              className="flex w-full items-center justify-between gap-3 px-1 text-left"
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={onSheetToggle}
+            >
+              <div className="min-w-0">
+                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                  {SITE_NAME}
+                </p>
+                <h2 className="mt-0.5 text-base font-semibold tracking-tight text-slate-900">
+                  Chains
+                </h2>
+              </div>
+              <span className="shrink-0 rounded-full bg-white/35 px-2.5 py-1 text-xs tabular-nums text-slate-600">
+                {selectedCount} selected
+              </span>
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-start gap-2">
+            <div
+              {...dragHandleProps}
+              className={`min-w-0 flex-1 touch-none select-none px-2 ${dragHandleProps?.className ?? ""} ${isDragging ? "cursor-grabbing" : dragHandleProps ? "cursor-grab" : ""}`}
+            >
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500">
+                {SITE_NAME}
+              </p>
+              <h2 className="mt-1 text-lg font-semibold tracking-tight text-slate-900">Chains</h2>
+              <p className="mt-0.5 text-xs text-slate-600">{SITE_TAGLINE}</p>
+            </div>
+
+            {onMinimize ? (
+              <button
+                type="button"
+                aria-label="Minimize panel"
+                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white/35 hover:text-slate-800"
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={onMinimize}
+              >
+                <MinimizeIcon />
+              </button>
+            ) : null}
+          </div>
+        )}
       </header>
 
-      <GlassScrollArea>
+      <GlassScrollArea className={isBottomSheet ? "min-h-0 flex-1" : undefined}>
         <div className="divide-y divide-slate-900/5">
           {categories.map((category) => {
             const categoryChains = chainsForCategory(category.slug);

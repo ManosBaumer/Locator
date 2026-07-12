@@ -100,6 +100,10 @@ body {
     transform: translate(2px, -50%);
   }
 
+  .bottom-sheet-handle {
+    @apply h-1 w-10 rounded-full bg-slate-500/35;
+  }
+
   .glass-checkbox {
     @apply relative inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[6px] text-slate-700;
     background: rgba(255, 255, 255, 0.22);

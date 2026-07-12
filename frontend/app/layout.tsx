@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Locater",
-  description: "Retail and chain location aggregation map for China"
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
